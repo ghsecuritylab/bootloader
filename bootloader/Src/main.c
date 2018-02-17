@@ -81,7 +81,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-	user_boot();
+//	user_boot();
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -112,6 +112,7 @@ int main(void)
   user_spi_init();
   spi_lcd_init();
   fb_init();
+  user_boot();
   /* USER CODE END 2 */
 
   /* Infinite loop */

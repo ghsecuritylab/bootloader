@@ -3,9 +3,6 @@
 #include "user_flash.h"
 #include <string.h>
 
-#define USER_FLASH_ADDR_BASE USER_FLASH_DATA_BASE
-#define USER_FLASH_SIZE 0x100
-
 typedef struct flash_write_buf
 {
 	uint64_t buf[FLASH_PAGE_SIZE/8];
@@ -14,23 +11,21 @@ typedef struct flash_write_buf
 static uint8_t flash_page_buf[FLASH_PAGE_SIZE] = {0};
 static flash_write_t *flash_write = (flash_write_t *)flash_page_buf;
 
-void user_flash_read(uint16_t addr, uint16_t len, uint8_t *data)
+void user_flash_read(uint32_t addr, uint16_t len, uint8_t *data)
 {
-	uint32_t flash_addr;
-	flash_addr = USER_FLASH_ADDR_BASE + addr;
-	memcpy(data, (uint8_t *)flash_addr, len);
+	memcpy(data, (uint8_t *)addr, len);
 }
 
-void user_flash_write(uint16_t addr, uint16_t len, uint8_t *data)
+void user_flash_write(uint32_t addr, uint16_t len, uint8_t *data)
 {
 	uint32_t flash_addr;
-	flash_addr = USER_FLASH_ADDR_BASE;
+	flash_addr = addr/FLASH_PAGE_SIZE*FLASH_PAGE_SIZE;
 	int i;
 	
 	//读出全部flash data
-	user_flash_read(0, USER_FLASH_SIZE, flash_page_buf);
+	user_flash_read(flash_addr, FLASH_PAGE_SIZE, flash_page_buf);
 	//拷贝需要更新的flash data
-	memcpy((flash_page_buf+addr), data, len);
+	memcpy((flash_page_buf+(addr-flash_addr)), data, len);
 	//1、解锁FLASH
 	HAL_FLASH_Unlock();
 
@@ -46,7 +41,7 @@ void user_flash_write(uint16_t addr, uint16_t len, uint8_t *data)
 	HAL_FLASHEx_Erase(&f, &PageError);
 
 	//3、对FLASH烧写
-	for (i=0; i<(USER_FLASH_SIZE/8); i++)
+	for (i=0; i<(FLASH_PAGE_SIZE/8); i++)
 	{
 		HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, flash_addr, flash_write->buf[i]);
 		flash_addr += 8;

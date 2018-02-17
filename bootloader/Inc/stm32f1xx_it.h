@@ -57,7 +57,6 @@ void DebugMon_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
 void DMA1_Channel3_IRQHandler(void);
-void USART2_IRQHandler(void);
 
 #ifdef __cplusplus
 }

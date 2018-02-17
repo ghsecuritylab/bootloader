@@ -3,12 +3,13 @@
 #include "user_boot.h"
 #include "app_bin.h"
 #include "user_flash.h"
+#include "xmodem.h"
 #include <string.h>
 
 const uint8_t app_bin[] __attribute__((at(USER_FLASH_APP_BASE))) = {APP_BIN};
 typedef void (*pFunction)(void);
 
-void user_boot(void)
+void user_boot2app(void)
 {
 	uint32_t JumpAddress;
 	uint32_t ApplicationAddress = USER_FLASH_APP_BASE;
@@ -21,4 +22,12 @@ void user_boot(void)
 		__set_MSP(*(__IO uint32_t*) ApplicationAddress);  
 		Jump_To_Application();  
 	}  
+}
+
+void user_boot(void)
+{
+	if (iot_xmodem_update_fw() == 0)
+	{
+		user_boot2app();
+	}
 }
