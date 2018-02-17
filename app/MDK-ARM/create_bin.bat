@@ -1,1 +1,0 @@
-C:\Keil_v5\ARM\ARMCC\bin\fromelf.exe --bin -o .\app\app.bin .\app\app.axf

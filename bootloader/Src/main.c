@@ -81,7 +81,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-//	user_boot();
+	user_boot();
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/

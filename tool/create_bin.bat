@@ -1,0 +1,1 @@
+C:\Keil_v5\ARM\ARMCC\bin\fromelf.exe --bin -o ..\app\MDK-ARM\app\app.bin ..\app\MDK-ARM\app\app.axf
