@@ -4,7 +4,7 @@
 
 #include <string.h>
 
-static uint8_t uart2_receive_data = 0U;
+//static uint8_t uart2_receive_data = 0U;
 
 void user_uart_init(void)
 {

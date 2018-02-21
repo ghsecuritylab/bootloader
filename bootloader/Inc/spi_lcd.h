@@ -4,6 +4,7 @@
 #include "stm32f1xx_hal.h"
 #include "user_config.h"
 #include "user_spi.h"
+#include "spi_lcd_dma.h"
 
 #define X_MAX_PIXEL	        128
 #define Y_MAX_PIXEL	        160
@@ -18,15 +19,19 @@
 #define GRAY1   0x8410      	//»ÒÉ«1      00000 000000 00000
 #define GRAY2   0x4208      	//»ÒÉ«2  1111111111011111
 
-//#define LCD_UsrLog(...) \
-//do{ \
-//	lcd_printf(__VA_ARGS__); \
-//	printf(__VA_ARGS__); \
-//}while(0)
+#ifdef USE_SPI_LCD_DMA
+#define LCD_UsrLog(...) \
+do{ \
+	fb_printf(__VA_ARGS__); \
+	printf(__VA_ARGS__); \
+}while(0)
+#else
 #define LCD_UsrLog(...) \
 do{ \
 	lcd_printf(__VA_ARGS__); \
+	printf(__VA_ARGS__); \
 }while(0)
+#endif
 
 extern const unsigned char asc16[];
 

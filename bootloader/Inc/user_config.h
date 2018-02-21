@@ -17,6 +17,8 @@
 (uint16_t)((((uint16_t)(x) & 0x00ff) << 8) | \
            (((uint16_t)(x) & 0xff00) >> 8))
 
+#define USE_SPI_LCD_DMA
+
 extern UART_HandleTypeDef huart2;
 extern SPI_HandleTypeDef hspi1;
 extern DMA_HandleTypeDef hdma_spi1_tx;

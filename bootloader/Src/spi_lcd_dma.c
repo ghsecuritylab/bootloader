@@ -1,5 +1,8 @@
 #include "stm32f1xx_hal.h"
 #include "user_config.h"
+
+#ifdef USE_SPI_LCD_DMA
+
 #include "user_io.h"
 #include "spi_lcd.h"
 #include "spi_lcd_dma.h"
@@ -38,7 +41,43 @@ void _fb_fill(uint16_t color)
 	}	
 }
 
-void fb_string_display(uint16_t fc, uint16_t bc, uint8_t *s)
+void fb_string_display(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t *s)
+{
+	unsigned char i,j;
+	unsigned short k,x0;
+	x0=x;
+
+	while(*s) 
+	{	
+		if((*s) < 128) 
+		{
+			k=*s;
+			if (k==13) 
+			{
+				x=x0;
+				y+=16;
+			}
+			else 
+			{
+				if (k>32) k-=32; else k=0;
+	
+			    for(i=0;i<16;i++)
+				for(j=0;j<8;j++) 
+					{
+				    	if(asc16[k*16+i]&(0x80>>j))	fb_write_point(x+j,y+i,fc);
+						else 
+						{
+							if (fc!=bc) fb_write_point(x+j,y+i,bc);
+						}
+					}
+				x+=8;
+			}
+			s++;
+		}
+	}
+}
+
+void fb_string_display_full_lcd(uint16_t fc, uint16_t bc, uint8_t *s)
 {
 	unsigned char i,j;
 	unsigned short k,x0;
@@ -100,7 +139,7 @@ void fb_printf(const char *fmt /*format*/, ...)
 	va_start(ap, fmt);
 	vsprintf((char *)fb_str, fmt, ap);
 	fb_fill(BLACK);
-    fb_string_display(WHITE,BLACK,fb_str);
+    fb_string_display_full_lcd(WHITE,BLACK,fb_str);
 	va_end(ap);
 }
 
@@ -116,12 +155,19 @@ bool _fb_update(void)
 	return true;
 }
 
+void fb_printf_fps(void)
+{
+	uint8_t fb_str[256] = {0};
+	sprintf((char *)fb_str, "FPS:%d", fb_fps);
+    fb_string_display(0,9*16,WHITE,BLACK,fb_str);
+}
+
 void fb_update(void)               
 {	
 	if (HAL_GetTick() - fb_update_timer >= 50)
 	{
 		fb_update_timer =  HAL_GetTick();
-		fb_printf("FPS:%d",fb_fps);
+		fb_printf_fps();
 		if(_fb_update())
 		{
 			fb_fps = 1000/(HAL_GetTick() - fb_fps_timer);
@@ -129,4 +175,4 @@ void fb_update(void)
 		}
 	}
 }
-
+#endif

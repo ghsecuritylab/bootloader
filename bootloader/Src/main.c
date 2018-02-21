@@ -111,8 +111,10 @@ int main(void)
   user_uart_init();
   user_spi_init();
   spi_lcd_init();
+#ifdef USE_SPI_LCD_DMA
   fb_init();
-  user_boot();
+#endif
+//  user_boot();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -122,7 +124,9 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+#ifdef USE_SPI_LCD_DMA
 	fb_update();
+#endif
   }
   /* USER CODE END 3 */
 

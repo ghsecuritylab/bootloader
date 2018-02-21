@@ -2,7 +2,9 @@
 #include "user_config.h"
 #include "user_spi.h"
 
+#ifdef USE_SPI_LCD_DMA
 uint8_t flag_spi_tx_cplt = 1;
+#endif
 
 void user_spi_init(void)
 {
@@ -20,6 +22,7 @@ void spi1_write_byte(uint8_t tx_data)
 	(void)HAL_SPI_Transmit(&hspi1, &spi_tx_data, 1, HAL_MAX_DELAY);		    
 }
 
+#ifdef USE_SPI_LCD_DMA
 void spi1_write_data(uint8_t *tx_data, uint16_t len)
 {	
 	/* TODO: can not without timeout */
@@ -36,3 +39,4 @@ void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
   */
 	flag_spi_tx_cplt = 1;
 }
+#endif
