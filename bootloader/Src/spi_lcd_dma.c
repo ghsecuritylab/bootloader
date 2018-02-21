@@ -74,6 +74,10 @@ void fb_string_display(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t
 			}
 			s++;
 		}
+		else
+		{
+			s++;
+		}
 	}
 }
 
@@ -128,6 +132,10 @@ void fb_string_display_full_lcd(uint16_t fc, uint16_t bc, uint8_t *s)
 			}
 			s++;
 			x_index++;
+		}
+		else
+		{
+			s++;
 		}
 	}
 }

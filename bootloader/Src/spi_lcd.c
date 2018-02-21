@@ -403,6 +403,10 @@ void Gui_DrawFont_GBK16(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_
 			}
 			s++;
 		}
+		else
+		{
+			s++;
+		}
 	}
 }
 
@@ -461,6 +465,10 @@ void Gui_DrawFont_GBK16_FullLCD(uint16_t fc, uint16_t bc, uint8_t *s)
 			}
 			s++;
 			x_index++;
+		}
+		else
+		{
+			s++;
 		}
 	}
 }

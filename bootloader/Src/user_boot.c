@@ -6,7 +6,7 @@
 #include "xmodem.h"
 #include <string.h>
 
-const uint8_t app_bin[] __attribute__((at(USER_FLASH_APP_BASE))) = {APP_BIN};
+//const uint8_t app_bin[] __attribute__((at(USER_FLASH_APP_BASE))) = {APP_BIN};
 typedef void (*pFunction)(void);
 
 void user_boot2app(void)
@@ -26,7 +26,7 @@ void user_boot2app(void)
 
 void user_boot(void)
 {
-	if (iot_xmodem_update_fw() == 0)
+//	if (iot_xmodem_update_fw() == 0)
 	{
 		user_boot2app();
 	}

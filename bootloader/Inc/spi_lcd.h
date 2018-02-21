@@ -33,6 +33,20 @@ do{ \
 }while(0)
 #endif
 
+#ifdef USE_SPI_LCD_DMA
+#define LCD_ErrLog(...) \
+do{ \
+	fb_printf(__VA_ARGS__); \
+	printf(__VA_ARGS__); \
+}while(0)
+#else
+#define LCD_ErrLog(...) \
+do{ \
+	lcd_printf(__VA_ARGS__); \
+	printf(__VA_ARGS__); \
+}while(0)
+#endif
+
 extern const unsigned char asc16[];
 
 extern void spi_lcd_init(void);
