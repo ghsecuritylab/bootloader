@@ -14,3 +14,7 @@
 *.scratch
 *.icf
 *.admin
+*.Bak
+*.TMP
+/参考资料
+/tool/temp
