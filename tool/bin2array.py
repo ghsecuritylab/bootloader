@@ -31,10 +31,15 @@ file_app_bin = open(path_app_bin_temp,"rb")
 byte_app_bin = file_app_bin.read( )
 file_app_bin.close()
 
-str_app_bin = "#define APP_BIN "
+str_app_bin = "#ifndef __APP_BIN_H" + "\n"
+str_app_bin = str_app_bin + "#define __APP_BIN_H" + "\n"
+str_app_bin = str_app_bin + "\n"
+str_app_bin = str_app_bin + "#define APP_BIN "
 for i in range(len(byte_app_bin)):
 	str_app_bin = str_app_bin + hex(byte_app_bin[i]) + ","
 str_app_bin = str_app_bin + "\n"
+str_app_bin = str_app_bin + "\n"
+str_app_bin = str_app_bin + "#endif /* __APP_BIN_H */" + "\n"
 
 file_app_bin_h = open(path_app_bin_h_temp, "w")
 file_app_bin_h.write(str_app_bin)
