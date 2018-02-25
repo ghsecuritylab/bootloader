@@ -95,6 +95,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+	uint32_t UpdateTimeoutTimer = 0u;
 	user_boot();
   /* USER CODE END 1 */
 
@@ -145,6 +146,11 @@ int main(void)
 #ifdef USE_SPI_LCD_DMA
 	fb_update();
 #endif
+	if (HAL_GetTick() - UpdateTimeoutTimer >= 3*60*1000)
+	{
+		HAL_NVIC_SystemReset();
+		while(1);
+	}
   }
   /* USER CODE END 3 */
 

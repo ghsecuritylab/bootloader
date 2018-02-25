@@ -292,6 +292,9 @@ static void IAP_wrq_recv_callback(void *_args, struct udp_pcb *upcb, struct pbuf
     LCD_UsrLog("  State: Prog Finished \n");
     LCD_UsrLog("Reset the board \n");
 #endif
+	  
+	HAL_NVIC_SystemReset();
+	while(1);
   }
   else
   {
