@@ -14,7 +14,7 @@ typedef struct boot_status
 #pragma pack()
 
 boot_status_t *boot_status = (boot_status_t *)USER_FLASH_BOOT_DATA_BASE;
-const uint8_t app_bin[] __attribute__((at(USER_FLASH_APP_BASE))) = {APP_BIN};
+//const uint8_t app_bin[] __attribute__((at(USER_FLASH_APP_BASE))) = {APP_BIN};
 typedef void (*pFunction)(void);
 
 void user_boot2app(void)

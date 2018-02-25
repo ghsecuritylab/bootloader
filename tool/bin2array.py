@@ -15,34 +15,34 @@ if os.path.exists(path_temp) == False:
 if os.path.exists(path_lib) == False:
 	os.mkdir(path_lib)
 
-name_app_bin = "app.bin"
-path_app_bin = "..\\app\\MDK-ARM\\app\\" + name_app_bin
-path_app_bin_temp = path_temp + name_app_bin
-name_app_bin_h = "app_bin.h"
-path_app_bin_h = path_lib + name_app_bin_h
-path_app_bin_h_temp = path_temp + name_app_bin_h
+name_bootloader_bin = "bootloader.bin"
+path_bootloader_bin = "..\\bootloader\\MDK-ARM\\bootloader\\" + name_bootloader_bin
+path_bootloader_bin_temp = path_temp + name_bootloader_bin
+name_bootloader_bin_h = "bootloader_bin.h"
+path_bootloader_bin_h = path_lib + name_bootloader_bin_h
+path_bootloader_bin_h_temp = path_temp + name_bootloader_bin_h
 
-if os.path.exists(path_app_bin) == False:
+if os.path.exists(path_bootloader_bin) == False:
 	sys.exit(0)
 
-shutil.copyfile(path_app_bin,path_app_bin_temp)
+shutil.copyfile(path_bootloader_bin,path_bootloader_bin_temp)
 
-file_app_bin = open(path_app_bin_temp,"rb")  
-byte_app_bin = file_app_bin.read( )
-file_app_bin.close()
+file_bootloader_bin = open(path_bootloader_bin_temp,"rb")  
+byte_bootloader_bin = file_bootloader_bin.read( )
+file_bootloader_bin.close()
 
-str_app_bin = "#ifndef __APP_BIN_H" + "\n"
-str_app_bin = str_app_bin + "#define __APP_BIN_H" + "\n"
-str_app_bin = str_app_bin + "\n"
-str_app_bin = str_app_bin + "#define APP_BIN "
-for i in range(len(byte_app_bin)):
-	str_app_bin = str_app_bin + hex(byte_app_bin[i]) + ","
-str_app_bin = str_app_bin + "\n"
-str_app_bin = str_app_bin + "\n"
-str_app_bin = str_app_bin + "#endif /* __APP_BIN_H */" + "\n"
+str_bootloader_bin = "#ifndef __BOOTLOADER_BIN_H" + "\n"
+str_bootloader_bin = str_bootloader_bin + "#define __BOOTLOADER_BIN_H" + "\n"
+str_bootloader_bin = str_bootloader_bin + "\n"
+str_bootloader_bin = str_bootloader_bin + "#define BOOTLOADER_BIN "
+for i in range(len(byte_bootloader_bin)):
+	str_bootloader_bin = str_bootloader_bin + hex(byte_bootloader_bin[i]) + ","
+str_bootloader_bin = str_bootloader_bin + "\n"
+str_bootloader_bin = str_bootloader_bin + "\n"
+str_bootloader_bin = str_bootloader_bin + "#endif /* __BOOTLOADER_BIN_H */" + "\n"
 
-file_app_bin_h = open(path_app_bin_h_temp, "w")
-file_app_bin_h.write(str_app_bin)
-file_app_bin_h.close()
+file_bootloader_bin_h = open(path_bootloader_bin_h_temp, "w")
+file_bootloader_bin_h.write(str_bootloader_bin)
+file_bootloader_bin_h.close()
 
-shutil.copyfile(path_app_bin_h_temp,path_app_bin_h)
+shutil.copyfile(path_bootloader_bin_h_temp,path_bootloader_bin_h)
