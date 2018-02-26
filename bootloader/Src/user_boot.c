@@ -1,7 +1,7 @@
 #include "stm32f1xx_hal.h"
 #include "user_config.h"
 #include "user_boot.h"
-#include "app_bin.h"
+//#include "app_bin.h"
 #include "user_flash.h"
 #include "xmodem.h"
 #include <string.h>
@@ -15,6 +15,9 @@ typedef struct boot_status
 
 boot_status_t *boot_status = (boot_status_t *)USER_FLASH_BOOT_DATA_BASE;
 //const uint8_t app_bin[] __attribute__((at(USER_FLASH_APP_BASE))) = {APP_BIN};
+//const boot_status_t boot_status_init __attribute__((at(USER_FLASH_BOOT_DATA_BASE))) = {
+//.update_flag = false
+//};
 typedef void (*pFunction)(void);
 
 void user_boot2app(void)
