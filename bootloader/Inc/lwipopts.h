@@ -79,6 +79,8 @@
 /* Parameters set in STM32CubeMX LwIP Configuration GUI -*/
 /*----- Value in opt.h for LWIP_DHCP: 0 -----*/
 #define LWIP_DHCP 1
+/*----- Default Value for MEMP_NUM_UDP_PCB: 4 ---*/
+#define MEMP_NUM_UDP_PCB 5
 /*----- Default Value for LWIP_TCP: 1 ---*/
 #define LWIP_TCP 0
 /*----- Value in opt.h for NO_SYS: 0 -----*/
