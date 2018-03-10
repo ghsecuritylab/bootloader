@@ -60,6 +60,7 @@
 #include "spi_lcd.h"
 #include "spi_lcd_dma.h"
 #include "app_ethernet.h"
+#include "udp_echoclient.h"
 #include "tftpserver.h"
 /* USER CODE END Includes */
 
@@ -130,6 +131,7 @@ int main(void)
 #ifdef USE_SPI_LCD_DMA
   fb_init();
 #endif
+  udp_echoclient_connect();
   IAP_tftpd_init();
   User_notification(&gnetif);
 //  user_boot();

@@ -365,7 +365,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F107xC</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;        ../Drivers/STM32F1xx_HAL_Driver/Inc;        ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;        ../Drivers/CMSIS/Device/ST/STM32F1xx/Include;        ../Drivers/CMSIS/Include;        ..\..\lib;     ../Middlewares/Third_Party/LwIP/src/include;     ../Middlewares/Third_Party/LwIP/system;     ../Middlewares/Third_Party/LwIP/src/include/netif/ppp;     ../Middlewares/Third_Party/LwIP/src/include/lwip;     ../Middlewares/Third_Party/LwIP/src/include/lwip/apps;     ../Middlewares/Third_Party/LwIP/src/include/lwip/priv;     ../Middlewares/Third_Party/LwIP/src/include/lwip/prot;     ../Middlewares/Third_Party/LwIP/src/include/netif;     ../Middlewares/Third_Party/LwIP/src/include/posix;     ../Middlewares/Third_Party/LwIP/src/include/posix/sys;     ../Middlewares/Third_Party/LwIP/system/arch</IncludePath>
+              <IncludePath>../Inc;           ../Drivers/STM32F1xx_HAL_Driver/Inc;           ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;           ../Drivers/CMSIS/Device/ST/STM32F1xx/Include;           ../Drivers/CMSIS/Include;           ..\..\lib;        ../Middlewares/Third_Party/LwIP/src/include;        ../Middlewares/Third_Party/LwIP/system;        ../Middlewares/Third_Party/LwIP/src/include/netif/ppp;        ../Middlewares/Third_Party/LwIP/src/include/lwip;        ../Middlewares/Third_Party/LwIP/src/include/lwip/apps;        ../Middlewares/Third_Party/LwIP/src/include/lwip/priv;        ../Middlewares/Third_Party/LwIP/src/include/lwip/prot;        ../Middlewares/Third_Party/LwIP/src/include/netif;        ../Middlewares/Third_Party/LwIP/src/include/posix;        ../Middlewares/Third_Party/LwIP/src/include/posix/sys;        ../Middlewares/Third_Party/LwIP/system/arch</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -515,6 +515,21 @@
               <FileName>flash_if.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Src\flash_if.c</FilePath>
+            </File>
+            <File>
+              <FileName>udp_echoclient.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\udp_echoclient.c</FilePath>
+            </File>
+            <File>
+              <FileName>modbus_udp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\modbus_udp.c</FilePath>
+            </File>
+            <File>
+              <FileName>modbus_crc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\modbus_crc.c</FilePath>
             </File>
           </Files>
         </Group>

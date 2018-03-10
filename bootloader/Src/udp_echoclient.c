@@ -53,7 +53,6 @@
 #include "app_ethernet.h"
 #include "spi_lcd.h"
 #include "modbus_udp.h"
-#include "user_time.h"
 #include "user_io.h"
 #include <string.h>
 #include <stdio.h>
@@ -97,7 +96,6 @@ void udp_server_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p
 			udp_connect(upcb_client, addr, port);
 			udp_client_send(udp_send_buf, data_len);
 			LCD_UsrLog ("UdpConnectComplete\n");
-			user_time_start();
 		}
 	}
 
@@ -149,68 +147,6 @@ void udp_echoclient_connect(void)
   }
 }
 
-/**
-  * @brief This function is called when an UDP datagrm has been received on the port UDP_PORT.
-  * @param arg user supplied argument (udp_pcb.recv_arg)
-  * @param pcb the udp_pcb which received data
-  * @param p the packet buffer that was received
-  * @param addr the remote IP address from which the packet was received
-  * @param port the remote port from which the packet was received
-  * @retval None
-  */
-void udp_echoclient_send(void)
-{
-	uint16_t data_len;
-	
-	if (get_timer2_isr_flag() == 1)
-	{
-		clr_timer2_isr_flag();
-		modbus_bus485_task();
-	}
-	
-	if (get_ltc_frame_update_event() == 1)
-	{
-		clr_ltc_frame_update_event();
-#ifdef USE_DHCP
-		if ((!(upcb_client->flags & UDP_FLAGS_CONNECTED)) ||
-			((DHCP_state != DHCP_ADDRESS_ASSIGNED) &&
-			 (DHCP_state != DHCP_TIMEOUT)))
-#else
-		if (!(upcb_client->flags & UDP_FLAGS_CONNECTED))
-#endif
-		{
-			return;
-		}
-		data_len = send_ltc(udp_send_buf);
-		udp_client_send(udp_send_buf, data_len);
-		HAL_GPIO_TogglePin(OUTPUT_LED1_GPIO_Port, OUTPUT_LED1_Pin);
-	}
-	
-	/* Fine DHCP periodic process every 500ms */
-	if (HAL_GetTick() - UDPSendTimer >= UDP_SEND_TIMER_MSECS)
-	{
-		modbus_udp_task();
-		UDPSendTimer =  HAL_GetTick(); 
-		if (0 == udp_send_active_flag)
-		{
-			return;
-		}
-#ifdef USE_DHCP
-		if ((!(upcb_client->flags & UDP_FLAGS_CONNECTED)) ||
-			((DHCP_state != DHCP_ADDRESS_ASSIGNED) &&
-			 (DHCP_state != DHCP_TIMEOUT)))
-#else
-		if (!(upcb_client->flags & UDP_FLAGS_CONNECTED))
-#endif
-		{
-			return;
-		}
-	}
-	else
-	{
-		return;
-	}
-}
 
 void udp_client_send(uint8_t *data, uint16_t len)
 {

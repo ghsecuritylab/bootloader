@@ -428,9 +428,15 @@ static void IAP_tftp_recv_callback(void *arg, struct udp_pcb *upcb, struct pbuf 
     LCD_UsrLog("%s\n", message);
     LCD_UsrLog("  State: Erasing...\n");
 #endif
-     
-    /* Start the TFTP write mode*/
-    IAP_tftp_process_write(upcb_tftp_data, addr, port);
+    if (strcmp(filename, "app.bin") == 0)
+	{		
+		/* Start the TFTP write mode*/
+		IAP_tftp_process_write(upcb_tftp_data, addr, port);
+	}
+	else
+	{
+		udp_remove(upcb_tftp_data);
+	}
   }
   pbuf_free(pkt_buf);
 }
